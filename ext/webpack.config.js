@@ -3,15 +3,14 @@ const path = require("path");
 /* Plugins */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-
-const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const distDir = path.resolve(__dirname, "dist");
 const backgroundDir = path.resolve(__dirname, "src", "background");
 const popupDir = path.resolve(__dirname, "src", "popup");
 
 module.exports = {
-  watch: nodeEnv === "watch",
+  devtool: "cheap-source-map",
   entry: {
     background: path.resolve(backgroundDir, "index.ts"),
     popup: path.resolve(popupDir, "index.ts"),
@@ -33,12 +32,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: "body",
-      filename: "popup.html",
-      title: "100fastfingers",
-      chunks: ["popup"],
-    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -47,6 +40,14 @@ module.exports = {
           toType: "file",
         },
       ],
+    }),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      inject: "body",
+      filename: "popup.html",
+      title: "100fastfingers",
+      chunks: ["popup"],
+      template: path.resolve(popupDir, "index.html"),
     }),
   ],
 };
