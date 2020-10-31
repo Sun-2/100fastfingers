@@ -1,30 +1,48 @@
-import ws from 'websocket';
+import * as ws from "websocket";
 import * as http from "http";
+import {
+  AntiCheatRequest,
+  AntiCheatRequestType,
+  Message,
+  WS_PORT,
+} from "@100ff/shared";
+import { recognize } from "./recognize";
+import { getAntiCheatText } from "./getAntiCheatText";
+import { sendAntiCheatAnswer } from "./sendAntiCheatAnswer";
 
-const server = http.createServer(function (request, response) {
-  console.log((new Date()) + ' Received request for ' + request.url);
+const server = http.createServer();
 
-
-});
-
-server.listen(8080, function() {
-  console.log((new Date()) + ' Server is listening on port 8080');
+server.listen(WS_PORT, function () {
+  console.log("Server is listening on port 8080");
 });
 
 const wsServer = new ws.server({
   httpServer: server,
-  autoAcceptConnections: false
+  autoAcceptConnections: false,
 });
 
-wsServer.on('request', function(request) {
+wsServer.on("request", async function (request) {
+  const connection = request.accept();
+  console.log(`Got connection.`);
 
-  var connection = request.accept();
-  console.log((new Date()) + ' Connection accepted.');
-  connection.on('message', function(message) {
-    console.log('mes')
-    console.log(message.utf8Data);
+  connection.on("message", async function (message) {
+    console.log(`Got message.`, message.utf8Data);
+
+    const msg: Message = JSON.parse(message.utf8Data);
+    switch (msg.type) {
+      case AntiCheatRequestType:
+        const antiCheatMessage = msg as AntiCheatRequest;
+        const text = await getAntiCheatText(antiCheatMessage.cookie);
+        await sendAntiCheatAnswer(
+          text.replace(/\s+/g, " ").trim().split(" "),
+          antiCheatMessage.cookie
+        );
+      default:
+        console.error("Unknown WS message type:", msg.type);
+    }
   });
-  connection.on('close', function(reasonCode, description) {
-    console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+
+  connection.on("close", function (reasonCode, description) {
+    console.log(`Connection closed.`);
   });
 });

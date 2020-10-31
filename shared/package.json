@@ -1,0 +1,11 @@
+{
+  "name": "@100ff/shared",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "yarn tsc --build"
+  },
+  "dependencies": {
+    "typescript": "^4.0.5"
+  }
+}

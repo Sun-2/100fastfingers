@@ -8,6 +8,7 @@
     "watch": "NODE_ENV=development yarn webpack --watch"
   },
   "dependencies": {
+    "@100ff/shared": "workspace:*",
     "@material-ui/core": "^4.11.0",
     "@types/chrome": "^0.0.126",
     "@types/react": "^16.9.55",

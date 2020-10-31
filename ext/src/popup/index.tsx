@@ -13,7 +13,6 @@ import styled, { createGlobalStyle, css } from "styled-components";
 
 /* Yes, adding React for this is an overkill. I know. */
 
-console.log("hi");
 const App = () => {
   const [desiredWpm, setDesiredWpm] = useState(50);
   const [cheatEnabled, setCheatEnabled] = useState(true);

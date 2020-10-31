@@ -1,7 +1,8 @@
 import {initializeNormalChallengeCheat} from "./interceptNormalChallenge";
 import {initializePopup} from "./initializePopup";
+import {initializeAntiCheatWorkaround} from "./interceptAntiCheat";
 
-// chrome.cookies.getAll({url:"https://10fastfingers.com/"}, cookie => console.log(cookie))
 initializeNormalChallengeCheat();
 initializePopup();
+initializeAntiCheatWorkaround();
 

@@ -1,11 +1,14 @@
 {
   "name": "@100ff/server",
   "version": "0.0.1",
+  "scripts": {
+    "build": "yarn tsc --build"
+  },
   "dependencies": {
+    "@100ff/shared": "workspace:*",
     "@types/clipboardy": "^2.0.1",
     "@types/node-fetch": "^2.5.7",
     "@types/websocket": "^1.0.1",
-    "clipboardy": "^2.3.0",
     "node-fetch": "^2.6.1",
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.5",
