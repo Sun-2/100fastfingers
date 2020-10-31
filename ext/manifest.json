@@ -1,0 +1,15 @@
+{
+  "name": "100fastfingers",
+  "version": "0.0.1",
+  "description": "aa",
+  "manifest_version": 2,
+  "permissions": ["webRequestBlocking", "activeTab", "webRequest", "*://10fastfingers.com/*", "cookies"],
+  "background": { "scripts": ["bgr.js"] },
+  "content_scripts": [
+    {
+      "matches": ["https://10fastfingers.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

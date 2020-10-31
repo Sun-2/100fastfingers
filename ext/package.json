@@ -1,0 +1,13 @@
+{
+  "name": "@100ff/ext",
+  "version": "0.0.1",
+  "dependencies": {
+    "@types/chrome": "^0.0.126",
+    "copy-webpack-plugin": "^6.2.1",
+    "html-webpack-plugin": "^4.5.0",
+    "ts-loader": "^8.0.7",
+    "typescript": "^4.0.5",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0"
+  }
+}

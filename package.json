@@ -1,0 +1,11 @@
+{
+  "name": "100fastfingers",
+  "private": true,
+  "workspaces": [
+    "server",
+    "ext"
+  ],
+  "dependencies": {
+    "prettier": "^2.1.2"
+  }
+}
