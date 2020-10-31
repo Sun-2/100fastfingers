@@ -4,28 +4,39 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 
 const distDir = path.resolve(__dirname, "dist");
 const backgroundDir = path.resolve(__dirname, "src", "background");
 const popupDir = path.resolve(__dirname, "src", "popup");
 
+const env = process.env.NODE_ENV || "development";
+
+const cleanWebpackPlugin =
+  env === "production"
+    ? new CleanWebpackPlugin()
+    : () => {
+        this.apply = () => {};
+      };
+
 module.exports = {
+  mode: env,
   devtool: "cheap-source-map",
   entry: {
     background: path.resolve(backgroundDir, "index.ts"),
-    popup: path.resolve(popupDir, "index.ts"),
+    popup: path.resolve(popupDir, "index.tsx"),
   },
   output: {
     path: distDir,
     filename: "[name].js",
   },
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".ts", ".tsx"],
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         loader: "ts-loader",
         exclude: /node_modules/,
       },
@@ -41,7 +52,6 @@ module.exports = {
         },
       ],
     }),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: "body",
       filename: "popup.html",
@@ -49,5 +59,9 @@ module.exports = {
       chunks: ["popup"],
       template: path.resolve(popupDir, "index.html"),
     }),
+    new DefinePlugin({
+      NODE_ENV: JSON.stringify(env),
+    }),
+    cleanWebpackPlugin,
   ],
 };
