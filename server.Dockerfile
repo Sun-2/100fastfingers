@@ -28,6 +28,8 @@ RUN node /home/work/usr/src/app/.yarn/releases/yarn-berry.cjs
 
 COPY . .
 
+EXPOSE 8980
+
 RUN cd server && node /home/work/usr/src/app/.yarn/releases/yarn-berry.cjs build
 WORKDIR server
 CMD ["node", "/home/work/usr/src/app/.yarn/releases/yarn-berry.cjs", "start"]
