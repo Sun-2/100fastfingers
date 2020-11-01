@@ -6,6 +6,7 @@ import {
   CssBaseline,
   Divider,
   FormControlLabel,
+  LinearProgress,
   Paper,
   Switch,
   Tab,
@@ -17,6 +18,7 @@ import styled, { createGlobalStyle, css } from "styled-components";
 // @ts-ignore
 import typingGif from "./assets/typing.gif";
 import { RequestSubmitChallenge } from "../const";
+import { sleep } from "@100ff/shared";
 
 /* Yes, adding React for this is an overkill. I know. */
 
@@ -49,7 +51,9 @@ const NormalView = () => {
   const [wpm, setWpm] = useState(80);
   const onWpmChange = (e) => setWpm(e.target.value);
 
-  const onSubmitTest = () => {
+  const [progress, setProgress] = useState(0);
+
+  const onSubmitTest = async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       if (!tabs.length) return console.log("No tabs found");
 
@@ -61,7 +65,25 @@ const NormalView = () => {
         console.log(`Tabs response:`, response);
       });
     });
+
+    let lastFrame;
+    const increaseProgress = (progress: number) => (time: number) => {
+      const minute = 60 * 1000;
+      const thisFrame = !lastFrame ? 16 : time - lastFrame;
+      console.log(thisFrame);
+      const nextProgress = Math.min(progress + thisFrame / minute, 100);
+      setProgress(nextProgress * 100);
+      lastFrame = time;
+      if (nextProgress === 100) {
+        setProgress(0);
+      } else requestAnimationFrame(increaseProgress(nextProgress));
+    };
+
+    increaseProgress(0)(16);
   };
+
+  console.log("prog", progress);
+  const isSubmitDisabled = progress !== 0;
 
   return (
     <Box display>
@@ -102,10 +124,16 @@ const NormalView = () => {
             value={wpm}
           />
         </Box>
-        <Button onClick={onSubmitTest} variant="contained" color="primary">
+        <Button
+          disabled={isSubmitDisabled}
+          onClick={onSubmitTest}
+          variant="contained"
+          color="primary"
+        >
           Submit fake test
         </Button>
       </Box>
+      <LinearProgress variant="determinate" value={progress} />
     </Box>
   );
 };
@@ -142,55 +170,3 @@ const Root = () => (
 );
 
 ReactDOM.render(<Root />, root);
-
-/*
-
-const a = <Button onClick={submitChallenge}>Send msg</Button>
-<Box display="flex" justifyContent="center" pb={2}>
-  <FormControlLabel
-    control={
-      <Switch
-        checked={cheatEnabled}
-        onChange={disableCheat}
-        name="cheatEnabled"
-        color="primary"
-      />
-    }
-    label={
-      <Box>
-        Cheat{" "}
-        <Box component="span" color={cheatEnabled ? "red" : "gray"}>
-          {cheatEnabled ? "ENABLED!" : "disabled."}
-        </Box>
-      </Box>
-    }
-  />
-</Box>
-<Typography variant="subtitle2" align="center">
-  All races you finish will have their
-  <br /> WPM modified before the result is reported.
-</Typography>
-<Box py={2}>
-  <Divider />
-</Box>
-<Typography gutterBottom>
-  What is the desired WPM you'd like to achieve? Please mind that this
-  number is an inaccurate approximation, and might be overshot by a fair
-  amount.
-</Typography>
-<Box display="flex" justifyContent="center" pt={1}>
-  <TextField
-    label="Desired WPM"
-    type="number"
-    onChange={onChange}
-    value={desiredWpm}
-  />
-</Box>
-<Box py={2}>
-  <Divider />
-</Box>
-<Box>
-  <Typography align="center" variant="subtitle2">
-    Mind that some errors might appear on the page.
-  </Typography>
-</Box>;*/

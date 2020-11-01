@@ -5,6 +5,8 @@
       "@100ff/shared": ["shared/src"],
       "@100ff/server": ["server/src"],
       "@100ff/ext": ["ext/src"]
-    }
+    },
+
+    "downlevelIteration": true
   }
 }

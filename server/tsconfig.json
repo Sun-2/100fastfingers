@@ -7,7 +7,6 @@
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
     /* Basic Options */
     "noImplicitAny": false,
     "incremental": true /* Enable incremental compilation */,

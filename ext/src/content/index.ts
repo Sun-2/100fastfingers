@@ -9,10 +9,12 @@ chrome.runtime.onMessage.addListener(function (
   sender,
   sendResponse
 ) {
+  console.log('req', request);
   switch (request.type) {
     case REQUEST_SUBMIT_CHALLENGE:
       const msg = request as RequestSubmitChallenge;
-      return submitChallenge(msg.wpm);
+      submitChallenge(msg.wpm);
+      break;
     default:
       throw new Error("Unrecognized message.");
   }
