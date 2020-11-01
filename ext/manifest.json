@@ -8,6 +8,7 @@
     "activeTab",
     "webRequest",
     "*://10fastfingers.com/*",
+    "tabs",
     "cookies",
     "declarativeContent"
   ],
