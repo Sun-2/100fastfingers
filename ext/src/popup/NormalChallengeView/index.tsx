@@ -61,7 +61,7 @@ export const NormalView = () => {
         </Typography>
         <Typography variant="body2" align="center">
           Mind that{" "}
-          <Typography variant="body2" component="span" color="secondary">
+          <Typography variant="body2" component="span" color="error">
             the desired WPM is an approximation
           </Typography>
           , and the number saved by

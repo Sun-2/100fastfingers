@@ -93,7 +93,7 @@ export const AntiCheatChallengeView: FC<AntiCheatChallengeViewProps> = (
           </li>
           <li>
             <Typography variant="body2">
-              The text-as-image meant to test you will appear underneath, as
+              The text-as-image meant to test that you're not a bot will appear underneath, as
               well as its extracted text that will be used as the answer.
             </Typography>
           </li>
@@ -113,7 +113,7 @@ export const AntiCheatChallengeView: FC<AntiCheatChallengeViewProps> = (
           </li>
           <li>
             <Typography variant="body2">
-              Mind that completing the test too quickly{" "}
+              Mind that submitting test too quickly{" "}
               <Typography variant="body2" color="error" component="span">
                 will get you banned
               </Typography>
@@ -122,7 +122,7 @@ export const AntiCheatChallengeView: FC<AntiCheatChallengeViewProps> = (
           </li>
         </ul>
       </Box>
-      <Box border={"1px dashed lightgray"}>
+      <Box border="1px dashed lightgray">
         <img
           width={"100%"}
           src={
@@ -133,7 +133,7 @@ export const AntiCheatChallengeView: FC<AntiCheatChallengeViewProps> = (
           alt="anticheat image"
         />
       </Box>
-      <Box py={2}>
+      <Box py={2} border="1px dashed lightgray">
         <Typography align="center">
           {recognizedText || "Recognized text will appear here."}
         </Typography>
