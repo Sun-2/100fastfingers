@@ -113,7 +113,7 @@ export const AntiCheatChallengeView: FC<AntiCheatChallengeViewProps> = (
           </li>
           <li>
             <Typography variant="body2">
-              Mind that submitting test too quickly{" "}
+              Mind that submitting this test too quickly{" "}
               <Typography variant="body2" color="error" component="span">
                 will get you banned
               </Typography>
