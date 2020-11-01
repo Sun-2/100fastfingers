@@ -5,6 +5,7 @@ import {
   AntiCheatRequestType,
 } from "@100ff/shared/dist/messages/AntiCheatRequest";
 import { ws } from "./ws";
+import { getCookieStoreForTab } from "./getCookieStoreForTab";
 
 /**
  * Intercepts the AntiCheat image request and sends it to the WebSocket server.
@@ -15,7 +16,8 @@ export function initializeAntiCheatWorkaround() {
       if (!details.url.includes("generate_word_picture")) return;
 
       (async () => {
-        const cookie = await getCookie();
+        const cookieStore = await getCookieStoreForTab(details.tabId);
+        const cookie = await getCookie(cookieStore);
         if (true || ws.readyState === 2) {
           const msg: AntiCheatRequest = {
             type: AntiCheatRequestType,

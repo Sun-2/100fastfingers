@@ -9,6 +9,7 @@ const { DefinePlugin } = require("webpack");
 const distDir = path.resolve(__dirname, "dist");
 const backgroundDir = path.resolve(__dirname, "src", "background");
 const popupDir = path.resolve(__dirname, "src", "popup");
+const contentDir = path.resolve(__dirname, "src", "content");
 
 const env = process.env.NODE_ENV || "development";
 
@@ -25,6 +26,7 @@ module.exports = {
   entry: {
     background: path.resolve(backgroundDir, "index.ts"),
     popup: path.resolve(popupDir, "index.tsx"),
+    content: path.resolve(contentDir, "index.ts"),
   },
   output: {
     path: distDir,
@@ -43,6 +45,10 @@ module.exports = {
           projectReferences: true,
         },
       },
+      {
+        test: /\.(gif|png|jpg|jpeg|webm)$/,
+        loader: "file-loader"
+      }
     ],
   },
   plugins: [

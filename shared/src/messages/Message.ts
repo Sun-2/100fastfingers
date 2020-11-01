@@ -1,3 +1,3 @@
-export interface Message {
-  type: string;
+export interface Message<T extends string> {
+  type: T;
 }

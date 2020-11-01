@@ -2,8 +2,10 @@
   "name": "@100ff/server",
   "version": "0.0.1",
   "scripts": {
-    "build": "yarn tsc --build"
+    "build": "yarn tsc --build",
+    "start": "yarn node ."
   },
+  "main": "dist/index.js",
   "dependencies": {
     "@100ff/shared": "workspace:*",
     "@types/clipboardy": "^2.0.1",

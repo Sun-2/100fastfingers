@@ -13,6 +13,7 @@ export async function sendAntiCheatAnswer(words: string[], cookie: string) {
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         "X-Requested-With": "XMLHttpRequest",
+        cookie,
       },
       referrer: "https://10fastfingers.com/anticheat/view/1/9",
       body: `eingabe_string=${wordString}&backspace_counter=${backspaceCounter}`,

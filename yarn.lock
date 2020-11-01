@@ -25,6 +25,7 @@ __metadata:
     "@types/styled-components": ^5.1.4
     clean-webpack-plugin: ^3.0.0
     copy-webpack-plugin: ^6.2.1
+    file-loader: ^6.2.0
     html-webpack-plugin: ^4.5.0
     react: ^17.0.1
     react-dom: ^17.0.1
@@ -2097,6 +2098,18 @@ __metadata:
   dependencies:
     reusify: ^1.0.4
   checksum: e9b46ea8990fa626ea23c8a790335a4220a659e189b6ec6cf9f38b879c259327a1532ec89d1ff196ebec365145d644a833a8edab6f975a8c46bad4b98c0e2ef7
+  languageName: node
+  linkType: hard
+
+"file-loader@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "file-loader@npm:6.2.0"
+  dependencies:
+    loader-utils: ^2.0.0
+    schema-utils: ^3.0.0
+  peerDependencies:
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 0f103418c072ec66c081a9908cd7824ee19905e18be16889cb050f5f373998afaf7ca4c2fd2df4cabf703a2cd526aefe59105930e3f8d266a5b35e6d5f5b3cf4
   languageName: node
   linkType: hard
 

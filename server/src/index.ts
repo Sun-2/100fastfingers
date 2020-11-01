@@ -28,6 +28,7 @@ wsServer.on("request", async function (request) {
   connection.on("message", async function (message) {
     console.log(`Got message.`, message.utf8Data);
 
+    if (!message.utf8Data) return console.error(`Unrecognized WS message.`);
     const msg: Message = JSON.parse(message.utf8Data);
     switch (msg.type) {
       case AntiCheatRequestType:
