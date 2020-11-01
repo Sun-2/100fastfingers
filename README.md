@@ -3,11 +3,12 @@
 
 Cheating software for [10fastfingers.com](https://10fastfingers.com/).
 
+Supports only Polish language so far.
 
 -------------
 ![](https://i.imgur.com/93Jv7Cm.png)
 ----------
-![](https://i.imgur.com/uAvvf4T.png)
+![](https://i.imgur.com/BcmeK25.png)
 -------------
 ![](https://i.imgur.com/uAvvf4T.png)
 
