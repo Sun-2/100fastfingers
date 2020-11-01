@@ -4,6 +4,8 @@ import {
   REQUEST_SUBMIT_CHALLENGE,
   RequestSubmitChallenge,
 } from "../api/RequestSubmitChallenge";
+import { getAntiCheatImage } from "./getAntiCheatImage";
+import { OkMessage } from "../api/OkMessage";
 
 console.log(`Initializing 100fastfingers cheat.`);
 
@@ -17,10 +19,14 @@ chrome.runtime.onMessage.addListener(function (
     case REQUEST_SUBMIT_CHALLENGE:
       const msg = request as RequestSubmitChallenge;
       submitChallenge(msg.wpm);
+      sendResponse({ type: "OK" } as OkMessage);
+      break;
+    case "GET_ANTICHEAT_IMAGE":
+      getAntiCheatImage().then((img) => sendResponse(img));
       break;
     default:
       throw new Error("Unrecognized message.");
   }
 
-  sendResponse("ok");
+  return true;
 });

@@ -1,16 +1,15 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import {Box, CssBaseline, Paper, Tab, Tabs,} from "@material-ui/core";
-import styled, {createGlobalStyle, css} from "styled-components";
+import { Box, CssBaseline, Paper, Tab, Tabs } from "@material-ui/core";
+import styled, { createGlobalStyle, css } from "styled-components";
 // @ts-ignore
 import typingGif from "./assets/typing.gif";
-import {NormalView} from "./Normal";
+import { NormalView } from "./NormalChallengeView";
+import { AntiCheatChallengeView } from "./AntiCheatChallengeView";
 
 /* Yes, adding React for this is an overkill. I know. */
 
 const App = () => {
-
-
   const [tab, setTab] = useState(0);
   const onTabChange = (_, nextTab) => setTab(nextTab);
 
@@ -30,7 +29,9 @@ const App = () => {
           <Tab label="Anti-Cheat" />
         </Tabs>
       </Paper>
-      <Wrapper>{tab === 0 ? <NormalView /> : null}</Wrapper>
+      <Wrapper>
+        {tab === 0 ? <NormalView /> : <AntiCheatChallengeView />}
+      </Wrapper>
     </Box>
   );
 };

@@ -1,0 +1,9 @@
+version: "3"
+services:
+  100ff-tess-server:
+    image: sunn2/100fastfingers-tess-server
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    ports:
+    - 8089:8980

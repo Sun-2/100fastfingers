@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { RequestSubmitChallenge } from "../../const";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -9,6 +8,7 @@ import {
 } from "@material-ui/core";
 import styled from "styled-components";
 import { sendMessage } from "../../utils/sendMessage";
+import { RequestSubmitChallenge } from "../../api/RequestSubmitChallenge";
 
 export const NormalView = () => {
   const [wpm, setWpm] = useState(80);
@@ -16,51 +16,61 @@ export const NormalView = () => {
 
   const [progress, setProgress] = useState(0);
 
+  const requestFrameRef = useRef<undefined | number>();
   const onSubmitTest = async () => {
     const msg: RequestSubmitChallenge = {
       type: "REQUEST_SUBMIT_CHALLENGE",
       wpm,
     };
-    const response = await sendMessage(msg, "content");
-    console.log(`Tabs response:`, response);
+    await sendMessage(msg, "content");
 
     let lastFrame;
     const increaseProgress = (progress: number) => (time: number) => {
-      const minute = 60 * 1000;
-      const thisFrame = !lastFrame ? 16 : time - lastFrame;
+      const timeMs = time / 1000;
+      const thisFrame = !lastFrame ? 0 : timeMs - lastFrame;
       console.log(thisFrame);
-      const nextProgress = Math.min(progress + thisFrame / minute, 100);
-      setProgress(nextProgress * 100);
-      lastFrame = time;
+      const nextProgress = Math.min(progress + thisFrame, 100);
+      setProgress(nextProgress);
+      lastFrame = timeMs;
       if (nextProgress === 100) {
         setProgress(0);
-      } else requestAnimationFrame(increaseProgress(nextProgress));
+      } else
+        requestFrameRef.current = requestAnimationFrame(
+          increaseProgress(nextProgress)
+        );
     };
 
-    increaseProgress(0)(16);
+    increaseProgress(0)(0);
   };
+  useEffect(
+    () => () => {
+      requestFrameRef.current !== undefined &&
+        cancelAnimationFrame(requestFrameRef.current);
+    },
+    []
+  );
 
   console.log("prog", progress);
   const isSubmitDisabled = progress !== 0;
 
   return (
-    <Box display>
+    <Box>
       <Box pb={2}>
         <Typography gutterBottom variant="body2" align="center">
           This will act as if you completed a test with the chosen WPM.
         </Typography>
         <Typography variant="body2" align="center">
           Mind that{" "}
-          <Typography variant="body2" display="inline" color="secondary">
+          <Typography variant="body2" component="span" color="secondary">
             the desired WPM is an approximation
           </Typography>
           , and the number saved by
-          <Typography variant="body2" display="inline" color="primary">
+          <Typography variant="body2" component="span" color="primary">
             {" "}
             10fastfingers.com{" "}
           </Typography>
           might be{" "}
-          <Typography variant="body2" display="inline" color="secondary">
+          <Typography variant="body2" component="span" color="error">
             20-30 higher
           </Typography>{" "}
           on occasion.

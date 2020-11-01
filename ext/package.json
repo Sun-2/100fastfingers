@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "build:dev": "NODE_ENV=development yarn webpack",
-    "build": "yarn build:dev",
+    "build": "yarn build:prod",
     "build:prod": "NODE_ENV=production yarn webpack",
     "watch": "NODE_ENV=development yarn webpack --watch"
   },
