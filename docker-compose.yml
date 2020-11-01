@@ -1,6 +1,7 @@
 version: "3"
 services:
   100ff-tess-server:
+    restart: unless-stopped
     image: sunn2/100fastfingers-tess-server
     build:
       context: .
